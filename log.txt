@@ -1,0 +1,2 @@
+{"level":"debug","message":"start","timestamp":"2016-08-31T05:13:32.198Z"}
+{"level":"debug","message":"stop","timestamp":"2016-08-31T05:13:32.208Z"}
