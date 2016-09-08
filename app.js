@@ -1,8 +1,6 @@
 (() => {
   'use strict';
 
-  process.on('uncaughtException', (e) => console.log(e.stack));
-
   const path            = require('path');
   const winston         = require('winston');
   const parseArgs       = require('minimist');
@@ -20,23 +18,14 @@
 
   firebase.initializeApp(config);
 
-  const args = parseArgs(process.argv, {default: {output: null}, alias: {output: ['o']}});
-
-  let logFilePath = 'log.txt';
-  if ('string' === typeof(args.output)) {
-    if (!path.isAbsolute(args.output)) {
-      args.output = path.resolve(process.cwd(), args.output);
-    }
-    logFilePath = path.join(args.output, logFilePath);
-  }
-
   const logger = new winston.Logger({
     level: 'debug',
     transports: [
-      new winston.transports.Console({timestamps: true, colorize: true, prettyPrint: true}),
-      new winston.transports.File({filename: logFilePath})
+      new winston.transports.Console({timestamps: true, colorize: true, prettyPrint: true})
     ]
   });
+
+  process.on('uncaughtException', (e) => logger.error(e.stack));
 
   class Runner {
     constructor() {
