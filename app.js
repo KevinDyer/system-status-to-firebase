@@ -4,7 +4,7 @@
   const path      = require('path');
   const winston   = require('winston');
   const parseArgs = require('minimist');
-  const GpsService  = require('./gps-service');
+  const GpsService  = require('./lib/gps-service');
 
   const args = parseArgs(process.argv, {default: {output: null}, alias: {output: ['o']}});
 
