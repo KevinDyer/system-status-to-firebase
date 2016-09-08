@@ -17,7 +17,6 @@
   }
 
   const logger = new winston.Logger({
-    level: 'debug',
     transports: [
       new winston.transports.Console({timestamps: true, colorize: true, prettyPrint: true}),
       new winston.transports.File({filename: logFilePath})
@@ -31,7 +30,7 @@
 
     start() {
       logger.debug('start');
-      return this.gpsService.start();
+      return this.gpsService.start({reconnect: true});
     }
 
     stop() {
@@ -41,8 +40,6 @@
   }
 
   const runner = new Runner();
-
-  process.on('exit', () => runner.stop());
 
   runner.start()
   .catch((err) => console.log(err.stack));
